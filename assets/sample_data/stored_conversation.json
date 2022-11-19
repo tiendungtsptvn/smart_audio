@@ -1,0 +1,202 @@
+{
+  "data": [
+    {
+      "name": "Test",
+      "alias": null,
+      "enable_notify": 1,
+      "role": "member",
+      "avatar": "https://cdn-thumb-image-1.gapowork.vn/168x168/smart/4c55e6e8-96cf-432e-bbb9-cfcc0e761d61.jpeg",
+      "id": 1634789791558,
+      "group_level": 0,
+      "message_count": 3,
+      "member_count": 3,
+      "departments": null,
+      "ban_count": 0,
+      "folder": "default",
+      "pinned_message_id": 0,
+      "read_count": 3,
+      "type": "group",
+      "blocked_by": null,
+      "link": "",
+      "description": null,
+      "partner": null,
+      "partner_id": null,
+      "last_message": {
+        "id": 3,
+        "body": "Dhdn",
+        "raw_body": {
+          "text": "Dhdn",
+          "type": "text",
+          "media": [
+
+          ],
+          "forward": {
+            "thread_id": 1623063576036,
+            "message_id": 12
+          },
+          "metadata": {
+            "mentions": null,
+            "preview_link": null
+          },
+          "tmp_text": null,
+          "reply_to_msg": null
+        },
+        "sender": {
+          "id": "1538982406",
+          "name": "Dương Thùy",
+          "avatar": "https://cdn-thumb-image-1.gapowork.vn/168x168/smart/a58ff00e-61cb-4ad5-962f-fe1a8fd96572.png",
+          "status_verify": 0,
+          "type": "user"
+        },
+        "created_at": 1634790724249,
+        "user_id": "1538982406"
+      },
+      "banner": null,
+      "pinned_at": 0,
+      "pinned_count": 0,
+      "associate_link": "",
+      "tags": [
+
+      ],
+      "can_call": null,
+      "unread_count": 0,
+      "can_send_message": 1,
+      "settings": {
+        "is_public": 0,
+        "disable_member_send_message": 0
+      }
+    },
+    {
+      "name": "Nguyen Dang Khoa, Pham Thanh Long",
+      "alias": null,
+      "enable_notify": 1,
+      "role": "member",
+      "avatar": "",
+      "id": 1632885766803,
+      "group_level": 0,
+      "message_count": 14,
+      "member_count": 3,
+      "departments": null,
+      "ban_count": 0,
+      "folder": "default",
+      "pinned_message_id": 0,
+      "read_count": 3,
+      "type": "group",
+      "blocked_by": null,
+      "link": "",
+      "description": null,
+      "partner": null,
+      "partner_id": null,
+      "last_message": {
+        "id": 14,
+        "body": "sdf",
+        "raw_body": {
+          "text": "sdf",
+          "type": "text",
+          "media": [
+
+          ],
+          "forward": null,
+          "metadata": null,
+          "tmp_text": null,
+          "reply_to_msg": null
+        },
+        "sender": {
+          "id": "1771398541",
+          "name": "Nguyễn Đăng Khoa",
+          "avatar": "https://cdn-thumb-image-1.gapowork.vn/168x168/smart/6c2607bc-d8bd-498c-a796-ac977ee840f3.png",
+          "status_verify": 0,
+          "type": "user"
+        },
+        "created_at": 1633566164402,
+        "user_id": "1771398541"
+      },
+      "banner": null,
+      "pinned_at": 0,
+      "pinned_count": 0,
+      "associate_link": "",
+      "tags": [
+
+      ],
+      "can_call": null,
+      "unread_count": 11,
+      "can_send_message": 1,
+      "settings": {
+        "is_public": 0,
+        "disable_member_send_message": 0
+      }
+    },
+    {
+      "name": "Tech, Mar",
+      "alias": null,
+      "enable_notify": 1,
+      "role": "member",
+      "avatar": "",
+      "id": 1632732495964,
+      "group_level": 0,
+      "message_count": 1,
+      "member_count": 3,
+      "departments": null,
+      "ban_count": 0,
+      "folder": "default",
+      "pinned_message_id": 0,
+      "read_count": 0,
+      "type": "group",
+      "blocked_by": null,
+      "link": "",
+      "description": null,
+      "partner": null,
+      "partner_id": null,
+      "last_message": {
+        "id": 1,
+        "body": "Nga đã tạo nhóm",
+        "raw_body": {
+          "text": "Nga đã tạo nhóm",
+          "type": "action_note",
+          "media": [
+
+          ],
+          "forward": null,
+          "metadata": {
+            "action_note_type": 0,
+            "action_note_maker": "279566741",
+            "action_note_receivers": [
+              "1042179540",
+              "1590828826",
+              "279566741"
+            ],
+            "action_note_data_change": {
+
+            }
+          },
+          "tmp_text": null,
+          "reply_to_msg": null
+        },
+        "sender": {
+          "id": "system",
+          "name": "GapoSystem",
+          "avatar": "https://cdn-thumb-image-1.gapo.vn/168x168/smart/759acdcb-8fdc-4d93-a158-db84f4b805c5.jpeg",
+          "status_verify": 1,
+          "type": "system"
+        },
+        "created_at": 1632732495309,
+        "user_id": "system"
+      },
+      "banner": null,
+      "pinned_at": 0,
+      "pinned_count": 0,
+      "associate_link": "",
+      "tags": [
+
+      ],
+      "can_call": null,
+      "unread_count": 1,
+      "can_send_message": 1,
+      "settings": {
+        "is_public": 0,
+        "disable_member_send_message": 0
+      }
+    }
+  ],
+  "total": 0
+}
