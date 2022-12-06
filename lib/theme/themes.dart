@@ -261,7 +261,7 @@ class AppThemes {
 
   /// LIGHT THEME
   static ThemeData theme() {
-    return _lightTheme;
+    return _darkTheme;
   }
 
   /// DARK THEME

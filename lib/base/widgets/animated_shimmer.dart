@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:smart_audio/constants/color.dart';
 
 import '../../theme/colors.dart';
 
@@ -33,13 +34,13 @@ class AnimatedShimmer extends StatelessWidget {
           );
     }
     return Shimmer.fromColors(
-      baseColor: GPColor.bgTertiary,
-      highlightColor: GPColor.bgPrimary,
+      baseColor: ColorSAU.shimmerColor,
+      highlightColor: ColorSAU.shimmerLightColor,
       child: child ??
           Container(
             width: width,
             height: height,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(radius), color: Colors.white),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(radius), color: ColorSAU.shimmerColor),
           ),
     );
   }

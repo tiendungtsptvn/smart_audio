@@ -1,14 +1,17 @@
-
+import 'package:alan_voice/alan_voice.dart';
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smart_audio/constants/constants.dart';
 import 'package:smart_audio/screens/home/home_controller.dart';
 import 'package:smart_audio/screens/player/player_controller.dart';
+import 'package:smart_audio/screens/search/search_controller.dart';
 import 'package:smart_audio/screens/splash/splash_screen.dart';
 import 'package:smart_audio/screens/tabs/tabs_controller.dart';
+import 'package:smart_audio/screens/wishlist_tracks/wishlist_controller.dart';
 import 'package:smart_audio/theme/colors.dart';
 
+import '../alan/alan_controller.dart';
 import '../auth/auth_controller.dart';
 
 class TabsScreenBinding extends Bindings {
@@ -17,14 +20,17 @@ class TabsScreenBinding extends Bindings {
     Get.put(AuthController());
     Get.lazyPut(() => TabsController());
     Get.lazyPut(() => HomeController());
+    Get.lazyPut(() => SearchController());
+    AlanVoice.addButton(
+        "67737059c5d2c83e73740f8a838359482e956eca572e1d8b807a3e2338fdd0dc/stage",
+        buttonAlign: AlanVoice.BUTTON_ALIGN_LEFT);
   }
 }
 
-class TabsScreen extends GetView<AuthController>{
+class TabsScreen extends GetView<AuthController> {
   const TabsScreen({
     Key? key,
   }) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,25 +44,28 @@ class TabsScreen extends GetView<AuthController>{
             controller.isAnonymous,
             accessToken: controller.accessToken,
           );
+          Get.put(AlanController(playerController: Get.find<PlayerController>()));
+          Get.put(WishlistController());
+          AlanVoice.onCommand.add((command) {
+            debugPrint("____________\n\ngot new command ${command.data}\n\n_____");
+            Get.find<AlanController>().action(actionData: command.data);
+          });
           print("isAnonymous: ${controller.isAnonymous}");
           print("access token: ${controller.accessToken}");
           return Obx(() => Scaffold(
+                resizeToAvoidBottomInset: false,
                 body: SafeArea(
-                  child: Stack(
-                    children: [
-                      tabsApp.elementAt(tabsController.currentIndex),
-                      // const Align(
-                      //   alignment: Alignment.bottomCenter,
-                      //   child: MiniPlayerScreen(),
-                      // )
-                    ],
-                  ),
+                  child: tabsApp.elementAt(tabsController.currentIndex),
                 ),
                 bottomNavigationBar: BottomBarDefault(
                   items: const [
                     TabItem(
                       icon: Icons.home,
                       title: "Home",
+                    ),
+                    TabItem(
+                      icon: Icons.search,
+                      title: "Search",
                     ),
                     TabItem(
                       icon: Icons.chat_bubble,
@@ -67,14 +76,14 @@ class TabsScreen extends GetView<AuthController>{
                       title: "Me",
                     ),
                   ],
-                  backgroundColor: Colors.grey.withOpacity(0.2),
-                  color: Colors.black,
+                  backgroundColor: ColorSAU.primaryColor,
+                  color: ColorSAU.textGreyLight,
                   colorSelected: GPColor.workPrimary,
                   animated: false,
                   indexSelected: tabsController.currentIndex,
-                  iconSize: 24,
-                  top: 10,
-                  bottom: 10,
+                  iconSize: 20,
+                  top: 5,
+                  bottom: 5,
                   titleStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
                   boxShadow: tabBarShadow,
                   onTap: (newIndex) {

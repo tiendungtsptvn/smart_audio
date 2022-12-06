@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:smart_audio/screens/alan/alan_controller.dart';
 import 'package:smart_audio/screens/player/mini_player.dart';
 import 'package:smart_audio/screens/player/player_controller.dart';
+import 'package:smart_audio/screens/wishlist_tracks/wishlist_controller.dart';
 import 'package:smart_audio/theme/themes.dart';
 import 'package:smart_audio/utils/recommendation_track.dart';
 import 'package:smart_audio/utils/utils.dart';
@@ -54,6 +56,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: AppThemes.theme(),
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
             RefreshConfiguration(

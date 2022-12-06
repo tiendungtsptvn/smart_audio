@@ -1,3 +1,4 @@
+
 import 'package:get_storage/get_storage.dart';
 import 'package:smart_audio/constants/constants.dart';
 import 'package:spotify/spotify.dart';
@@ -86,4 +87,22 @@ void sortAndRemoveRecommendationInformation() {
         Map.fromEntries(tracksStoredSorted.entries.toList()..removeRange(99, tracksStoredSorted.length));
   }
   storage.write(StringSAU.recentTracks, tracksStoredSorted);
+}
+
+List<String> getSeedData({required GetStorage storage, bool genres = false, bool artists = false, bool tracks = false,}){
+  Map<String, int> artistsData = {};
+  if(artists){
+    artistsData = storage.read(StringSAU.recentArtists);
+  }
+  if(genres){
+    artistsData = storage.read(StringSAU.recentGenres);
+
+  }
+  if(tracks){
+    artistsData = storage.read(StringSAU.recentTracks);
+  }
+  if(artistsData.keys.isNotEmpty){
+    return [artistsData.keys.first];
+  }
+  return [];
 }

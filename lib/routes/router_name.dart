@@ -11,4 +11,7 @@ class RouterName {
   static const String tabs = '/tabs';
   static const String loginWebView ='/loginWebView';
   static const String playlist = '/playlist';
+  static const String search = '/search';
+  static const String wishlist = '/wishlist';
+  static const String playerScreen = '/playerScreen';
 }

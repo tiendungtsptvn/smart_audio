@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smart_audio/utils/string_utils.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../base/controller/base_controller.dart';
 import '../../base/networking/services/auth_api.dart';
@@ -100,16 +99,16 @@ class LoginController extends BaseController {
 
   void showPrivacyAction() async {
     String url = Constants.policyUrl;
-    if (await canLaunchUrlString(url)) {
-      await launchUrlString(url);
-    }
+    // if (await canLaunchUrlString(url)) {
+    //   await launchUrlString(url);
+    // }
   }
 
   void showAgreementAction() async {
     String url = Constants.agreementUrl;
-    if (await canLaunchUrlString(url)) {
-      await launchUrlString(url);
-    }
+    // if (await canLaunchUrlString(url)) {
+    //   await launchUrlString(url);
+    // }
   }
 
   void sendCodeAction() async {

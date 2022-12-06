@@ -69,8 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    SAUColor.primaryColor1,
-                    SAUColor.primaryColor2,
+                    ColorSAU.primaryColor1,
+                    ColorSAU.primaryColor2,
                   ],
                 ),
               ),
@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
               centerTitle: true,
               title: Text(
                 "Smart Audio",
-                style: TextStyle(color: SAUColor.purpleLight, fontSize: 30, fontWeight: FontWeight.bold),
+                style: TextStyle(color: ColorSAU.purpleLight, fontSize: 30, fontWeight: FontWeight.bold),
               ),
               backgroundColor: Colors.transparent,
             ),

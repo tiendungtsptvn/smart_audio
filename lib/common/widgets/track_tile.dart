@@ -20,6 +20,7 @@ class TrackTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
+      margin: const EdgeInsets.symmetric(vertical: 2),
       duration: const Duration(milliseconds: 500),
       decoration: BoxDecoration(
         color: Theme.of(context).popupMenuTheme.color ?? Colors.transparent,
@@ -75,7 +76,12 @@ class TrackTile extends StatelessWidget {
                         ),
                   (loading)
                       ? const AnimatedShimmer(width: 70, height: 12)
-                      : Text(artistsToString(track.artists), style: const TextStyle(fontSize: 12)),
+                      : Text(
+                          artistsToString(track.artists),
+                          style: const TextStyle(fontSize: 12),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                 ],
               ),
             ),

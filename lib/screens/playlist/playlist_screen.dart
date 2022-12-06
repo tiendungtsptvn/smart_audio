@@ -1,9 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:smart_audio/constants/color.dart';
 import 'package:smart_audio/screens/player/player_controller.dart';
 import 'package:smart_audio/screens/playlist/playlist_controller.dart';
-import 'package:smart_audio/screens/playlist/widgets/track_tile.dart';
+import 'package:smart_audio/common/widgets/widgets.dart';
 import 'package:smart_audio/theme/colors.dart';
 import 'package:get/get.dart';
 import 'package:spotify/spotify.dart' as spotify;
@@ -26,10 +28,15 @@ class PlaylistScreen extends GetView<PlaylistController> {
     PlayerController playerController = Get.find<PlayerController>();
     final List<Widget> buttons = [
       IconButton(
-        icon: const Icon(
+        icon:  Icon(
           Icons.share_rounded,
+          color: ColorSAU.secondaryColor,
         ),
-        onPressed: () {},
+        onPressed: () {
+          if(controller.playlist.href != null){
+            Share.share(controller.playlist.href!);
+          }
+        },
       ),
       Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
@@ -40,7 +47,16 @@ class PlaylistScreen extends GetView<PlaylistController> {
               const CircleBorder(),
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            bool loading = controller.tracks.isEmpty && controller.loadingTracks;
+            if (!loading) {
+              playerController.playListTrack(
+                listTrack: controller.tracks,
+                playListId: controller.playlist.id,
+                index: 0,
+              );
+            }
+          },
           child: const Icon(
             Icons.play_arrow_rounded,
           ),
@@ -67,13 +83,13 @@ class PlaylistScreen extends GetView<PlaylistController> {
           ),
           iconTheme: const IconThemeData(color: GPColor.workPrimary),
           primary: true,
-          backgroundColor: const Color(0xFF26282C),
+          backgroundColor: ColorSAU.primaryColor,
           title: Obx(() {
             if (!controller.collapse) {
               return Text(
                 controller.playlist.name ?? '',
-                style: Theme.of(context).textTheme.headline4?.copyWith(
-                      color: const Color(0xFF606068),
+                style: Theme.of(context).textTheme.headline5?.copyWith(
+                      color: ColorSAU.textGrey,
                       fontWeight: FontWeight.w600,
                     ),
               );

@@ -24,6 +24,13 @@ class PlayerController extends BaseController {
   /// The track, that player is handling.
   final Rx<Track> _currentTrack = Track().obs;
 
+  /// If it true: playlist is empty and autoplay is off.
+  final RxBool _singlePlay = true.obs;
+
+  final Rx<Duration> _progressPlayer = Duration.zero.obs;
+
+  final Rx<Duration> _bufferedPlayer = Duration.zero.obs;
+
   /// Source of current playlist.
   final ConcatenatingAudioSource _listSourceTrack = ConcatenatingAudioSource(
     // Start loading next item just before reaching it
@@ -40,8 +47,6 @@ class PlayerController extends BaseController {
   /// If it true: current route is home tab, and mini player need padding from bottom.
   final RxBool _atHomeTab = true.obs;
 
-  /// If it true: playlist is empty and autoplay is off.
-  bool _singlePlay = true;
 
   /// If it true: current track is saved to storage.
   bool _savedCurrentTracks = false;
@@ -59,8 +64,15 @@ class PlayerController extends BaseController {
 
   Track get currentTrack => _currentTrack.value;
 
-
   bool get atHomeTab => _atHomeTab.value;
+
+  bool get singlePlay => _singlePlay.value;
+
+  Duration get progressPlayer => _progressPlayer.value;
+
+  Duration get bufferedPlayer => _bufferedPlayer.value;
+
+  Duration? get durationPlayer => _audioPlayer.duration;
 
   /// Show mini player.
   void showMiniPlayer() {
@@ -81,10 +93,14 @@ class PlayerController extends BaseController {
     }
   }
 
+  void seekPlayer({required Duration position}){
+    _audioPlayer.seek(position);
+  }
+
   /// Play single track.
   void playTrack({required Track track})async{
     if(track.previewUrl != null){
-      _singlePlay = true;
+      _singlePlay.value = true;
       _miniShowing.value = true;
       await _audioPlayer.setUrl(track.previewUrl!);
       _audioPlayer.play();
@@ -97,13 +113,17 @@ class PlayerController extends BaseController {
   /// Play a playlist.
   void playListTrack({required List<Track> listTrack, required int index, required String? playListId,})async{
     if(playListId != null){
-      _singlePlay = false;
+      _singlePlay.value = false;
+      await _audioPlayer.stop();
       if(playListId != _currentPlaylistId){
         _currentPlaylistId = playListId;
         List<AudioSource> sources = listTrack.map((e) => AudioSource.uri(Uri.parse(e.previewUrl!))).toList();
+
+        await _listSourceTrack.clear();
         await _listSourceTrack.addAll(sources);
         _listTrack.clear();
         _listTrack.addAll(listTrack);
+        _currentTrack.value = listTrack[index];
       }
       await _audioPlayer.setAudioSource(_listSourceTrack, initialIndex: index, initialPosition: Duration.zero);
       _miniShowing.value = true;
@@ -123,6 +143,16 @@ class PlayerController extends BaseController {
       }
       _audioPlayer.play();
     }
+  }
+
+  /// Previous
+  void previousTrack() async{
+    await _audioPlayer.seekToPrevious();
+  }
+
+  /// Next
+  void nextTrack() async{
+    await _audioPlayer.seekToNext();
   }
 
   /// Create spotify service.
@@ -158,9 +188,12 @@ class PlayerController extends BaseController {
 
     /// Handle play state.
     _audioPlayer.playerStateStream.listen((playerState) {
+      if(playerState.processingState == ProcessingState.loading){
+        _savedCurrentTracks = false;
+      }
       if (playerState.processingState == ProcessingState.completed) {
         print("completed");
-        if(_singlePlay){
+        if(_singlePlay.value){
           _audioPlayer.pause();
         }
         _playing.value = false;
@@ -178,13 +211,13 @@ class PlayerController extends BaseController {
       }
     });
 
+
     ///Listen index to set current track.
     ///
     _audioPlayer.currentIndexStream.listen((event) {
-      if(!_singlePlay && event != null){
+      if(!_singlePlay.value && event != null){
         print("This audio index $event");
         _currentTrack.value = _listTrack[event];
-        _savedCurrentTracks = false;
       }
     });
     /// Store information of track.
@@ -192,15 +225,20 @@ class PlayerController extends BaseController {
     /// Store when player play half of the current track.
     _audioPlayer.positionStream.listen((event) {
       if(_audioPlayer.duration != null && !_savedCurrentTracks){
-        _centerPosition = Duration(seconds: (_audioPlayer.duration!.inSeconds / 2).round());
+        _centerPosition = Duration(seconds: (_audioPlayer.duration!.inSeconds * positionToStoreTrack).round());
         if(event.compareTo(_centerPosition!) >= 0){
           debugPrint("\nStore information of ${_currentTrack.value.name}\n");
           storeTrackInformation(track: _currentTrack.value);
           _savedCurrentTracks = true;
         }
       }
+
+      _progressPlayer.value = event;
     });
 
+    _audioPlayer.bufferedPositionStream.listen((event) {
+      _bufferedPlayer.value = event;
+    });
 
     super.onInit();
   }

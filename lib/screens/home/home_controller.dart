@@ -15,9 +15,19 @@ class HomeController extends BaseController {
 
   final _loadingFeaturedPlaylists = false.obs;
 
+  final RxList<PlaylistSimple> _topHitPlaylists = <PlaylistSimple>[].obs;
+
+  final _loadingTopHitPlaylists = false.obs;
+
   List<PlaylistSimple> get featuredPlaylists => _featuredPlaylists;
 
   bool get loadingFeaturedPlaylists => _loadingFeaturedPlaylists.value;
+
+  List<PlaylistSimple> get topHitPlaylists => _topHitPlaylists;
+
+  bool get loadingTopHitPlaylists => _loadingTopHitPlaylists.value;
+
+  SpotifyApi? spotifyApi = Get.find<PlayerController>().spotifyApi;
 
   Future<void> getFeaturedPlaylists() async {
     try {
@@ -30,6 +40,18 @@ class HomeController extends BaseController {
     }
   }
 
+  Future<void> getTopHitPlaylists() async {
+    try {
+
+      _loadingTopHitPlaylists.value = true;
+      List<PlaylistSimple> playlists = await _spotifyService.getTopHitPlaylist();
+      _loadingTopHitPlaylists.value = false;
+      _topHitPlaylists.value = playlists;
+    } catch (_) {
+      _loadingTopHitPlaylists.value = false;
+    }
+  }
+
   void goToPlaylistScreen({required String playlistId}) {
     Get.toNamed(
       RouterName.playlist,
@@ -39,12 +61,31 @@ class HomeController extends BaseController {
     );
   }
 
+  void testApi() async{
+    if(spotifyApi != null){
+      String? id = '';
+      await spotifyApi!.categories.list(country: 'VN').all(10).then((value) {
+        for(var i in value){
+          print('${i.name} ${i.id}');
+        }
+        id = value.first.id;
+      });
+
+      await spotifyApi!.playlists.getByCategoryId(id ?? '').all(10).then((value) {
+        for(var i in value){
+          print('${i.name}');
+        }
+      });
+    }
+  }
+
   @override
   void onInit() {
     if (Get.find<PlayerController>().spotifyApi == null) {
       debugPrint("SpotifyApi null at home controller");
     }
     getFeaturedPlaylists();
+    getTopHitPlaylists();
     super.onInit();
   }
 }

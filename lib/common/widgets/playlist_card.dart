@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
 import 'package:smart_audio/base/widgets/animated_shimmer.dart';
 import 'package:smart_audio/constants/constants.dart';
 import 'package:spotify/spotify.dart' as spotify;
-
 
 class PlaylistCardItem extends StatelessWidget {
   const PlaylistCardItem({
     Key? key,
     required this.playlistSimple,
     required this.onTap,
-
   }) : super(key: key);
 
   final spotify.PlaylistSimple playlistSimple;
@@ -18,6 +17,7 @@ class PlaylistCardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isLoading = playlistSimple.id == null;
+    String name = playlistSimple.name ?? '';
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -25,7 +25,7 @@ class PlaylistCardItem extends StatelessWidget {
         width: SAUDouble.playlistCardWidth,
         height: SAUDouble.playlistCardHeight,
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: ColorSAU.backgroundCard,
             borderRadius: BorderRadius.circular(SAUDouble.playlistCardBorder),
             boxShadow: [
               BoxShadow(
@@ -63,11 +63,12 @@ class PlaylistCardItem extends StatelessWidget {
                           ),
                   ),
                   if (!isLoading)
-                    const Align(
+                     Align(
                       alignment: Alignment.bottomRight,
                       child: Icon(
                         Icons.play_circle_outline,
                         size: 40,
+                        color: ColorSAU.secondaryColor,
                       ),
                     )
                 ],
@@ -84,13 +85,31 @@ class PlaylistCardItem extends StatelessWidget {
                           height: 15,
                           radius: 5,
                         )
-                      : Text(
-                          playlistSimple.name ?? '',
-                          style: SAUStyle.textStyleNormal,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                        ),
+                      : (name.length <= 20)
+                          ? Text(
+                              name,
+                              style: SAUStyle.textStyleNormal,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                            )
+                          : Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Marquee(
+                                text: name,
+                                style: SAUStyle.textStyleNormal,
+                                scrollAxis: Axis.horizontal,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                blankSpace: 20.0,
+                                velocity: 100.0,
+                                pauseAfterRound: const Duration(seconds: 5),
+                                startPadding: 10.0,
+                                accelerationDuration: const Duration(seconds: 2),
+                                accelerationCurve: Curves.linear,
+                                decelerationDuration: const Duration(milliseconds: 500),
+                                decelerationCurve: Curves.easeOut,
+                              ),
+                          ),
                 ),
               ),
             )

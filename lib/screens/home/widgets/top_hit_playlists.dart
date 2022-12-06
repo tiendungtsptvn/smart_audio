@@ -6,18 +6,18 @@ import 'package:spotify/spotify.dart';
 
 import '../../../common/widgets/playlist_card.dart';
 
-class FeaturedPlaylists extends GetView<HomeController> {
-  const FeaturedPlaylists({Key? key}) : super(key: key);
+class TopHitPlaylists extends GetView<HomeController> {
+  const TopHitPlaylists({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       List<PlaylistSimple> playlists = [];
-      bool loading = controller.featuredPlaylists.isEmpty && controller.loadingFeaturedPlaylists;
+      bool loading = controller.topHitPlaylists.isEmpty && controller.loadingTopHitPlaylists;
       if(loading){
         playlists = List.generate(3, (index) => PlaylistSimple());
       }else{
-        playlists = controller.featuredPlaylists;
+        playlists = controller.topHitPlaylists;
       }
       if(!loading && playlists.isEmpty){
         return const Text("Empty list");

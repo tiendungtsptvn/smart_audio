@@ -1,3 +1,4 @@
+
 import 'package:get/get.dart';
 import '../../base/controller/base_controller.dart';
 
@@ -13,4 +14,5 @@ class TabsController extends BaseController {
       _currentIndex.value = index;
     }
   }
+
 }

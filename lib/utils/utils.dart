@@ -1,13 +1,11 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:smart_audio/utils/popup.dart';
 import 'package:smart_audio/utils/text_element.dart';
 
@@ -58,26 +56,7 @@ class Utils {
   }
 
   static Future<String> getDeviceId() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    String deviceId = "";
-    try {
-      if (GetPlatform.isIOS) {
-        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-        deviceId = iosInfo.identifierForVendor ?? "";
-      } else if (GetPlatform.isAndroid) {
-        AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-        deviceId = androidInfo.androidId ?? "";
-      } else if (GetPlatform.isLinux) {
-        var info = await deviceInfo.linuxInfo;
-        deviceId = info.machineId ?? "";
-      }
-    } on PlatformException {
-      logDebug('Failed to get platform version');
-    }
-    if (deviceId == "") {
-      return "ABC";
-    }
-    return deviceId;
+    return 'deviceId';
   }
 
   static String imageThumb(String pattern, String size) {
@@ -167,14 +146,6 @@ class Utils {
   }
 
   static Future<bool> get isBelowIOS14 async {
-    if (Platform.isIOS) {
-      var iosInfo = await DeviceInfoPlugin().iosInfo;
-      var first =
-          ParserHelper.parseInt(iosInfo.systemVersion?.split('.').first);
-      if (first is int) {
-        return first < 14;
-      }
-    }
     return false;
   }
 
@@ -200,37 +171,7 @@ class Utils {
   /// return file path base on extension
   /// (external storage for android and document director for ios)
   static Future<String> getDownloadFileName(String fileName) async {
-    // if (GetPlatform.isAndroid) {
-    //   // mimetype là image thì lưu vào: Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)/GapoWork
-    //   // mimetype là video thì lưu vào: Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)/GapoWork
-    //   // mimetype là audio thì lưu vào: Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)/GapoWork
-    //   // còn lại thì lưu vào: Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)/GapoWork
-    //   // public static String DIRECTORY_PICTURES = "Pictures";
-    //   // public static String DIRECTORY_MOVIES = "Movies";
-    //   // public static String DIRECTORY_MUSIC = "Music";
-    //   // public static String DIRECTORY_DOWNLOADS = "Download";
-    //   final documentDirectory = await getExternalStorageDirectory() ??
-    //       await getApplicationDocumentsDirectory();
-    //   final fileExtension = fileExtensionType(fileName: fileName);
-    //   String folder = 'Downloads';
-    //   switch (fileExtension) {
-    //     case FileExtensionType.photo:
-    //       folder = 'Pictures';
-    //       break;
-    //     case FileExtensionType.video:
-    //       folder = 'Movies';
-    //       break;
-    //     case FileExtensionType.audio:
-    //       folder = 'Music';
-    //       break;
-    //     default:
-    //       folder = 'Download';
-    //   }
-    //   return documentDirectory.path + '/$folder/GapoWork/$fileName';
-    // } else {
-    final documentDirectory = await getApplicationDocumentsDirectory();
-    String path = documentDirectory.path + '/' + fileName; //Gapo/images/
-    return path;
+    return 'path';
     // }
   }
 
