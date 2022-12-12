@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:smart_audio/base/widgets/animated_shimmer.dart';
 import 'package:smart_audio/common/common.dart';
+import 'package:smart_audio/screens/player/player_controller.dart';
 import 'package:smart_audio/utils/spotify_util.dart';
 import 'package:spotify/spotify.dart';
 
-class TrackTile extends StatelessWidget {
+class TrackTile extends GetView<PlayerController> {
   const TrackTile({
     Key? key,
     required this.index,
@@ -53,13 +55,24 @@ class TrackTile extends StatelessWidget {
                       ),
               ),
             ),
-            IconButton(
-              icon: Icon(
-                Icons.play_circle_rounded,
-                color: Theme.of(context).primaryColor,
-              ),
-              onPressed: onTapPlay,
-            ),
+            Obx(() {
+              if (controller.playing && controller.currentTrack.id == track.id) {
+                return IconButton(
+                  icon: Icon(
+                    Icons.pause_circle,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  onPressed: (){},
+                );
+              }
+              return IconButton(
+                icon: Icon(
+                  Icons.play_circle_rounded,
+                  color: Theme.of(context).primaryColor,
+                ),
+                onPressed: onTapPlay,
+              );
+            }),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -31,7 +31,7 @@ class MiniPlayerScreen extends GetView<PlayerController> {
                 Get.toNamed(RouterName.playerScreen);
               },
               child: Container(
-                height: 60,
+                height: 70,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: ColorSAU.backgroundCard,
@@ -97,6 +97,9 @@ class MiniPlayerScreen extends GetView<PlayerController> {
                                   decelerationCurve: Curves.easeOut,
                                 ),
                               ),
+                          ),
+                          const SizedBox(
+                            height: 5,
                           ),
                           Text(
                             artistsToString(controller.currentTrack.artists),

@@ -19,6 +19,14 @@ class HomeController extends BaseController {
 
   final _loadingTopHitPlaylists = false.obs;
 
+  final RxList<PlaylistSimple> _vietnamPlaylists = <PlaylistSimple>[].obs;
+
+  final _loadingVietnamPlaylists = false.obs;
+
+  final RxList<PlaylistSimple> _kPopPlaylists = <PlaylistSimple>[].obs;
+
+  final _loadingKPopPlaylists = false.obs;
+
   List<PlaylistSimple> get featuredPlaylists => _featuredPlaylists;
 
   bool get loadingFeaturedPlaylists => _loadingFeaturedPlaylists.value;
@@ -26,6 +34,14 @@ class HomeController extends BaseController {
   List<PlaylistSimple> get topHitPlaylists => _topHitPlaylists;
 
   bool get loadingTopHitPlaylists => _loadingTopHitPlaylists.value;
+
+  List<PlaylistSimple> get vietnamPlaylists => _vietnamPlaylists;
+
+  bool get loadingVietnamPlaylists => _loadingVietnamPlaylists.value;
+
+  List<PlaylistSimple> get kPopPlaylists => _kPopPlaylists;
+
+  bool get loadingKPopPlaylists => _loadingKPopPlaylists.value;
 
   SpotifyApi? spotifyApi = Get.find<PlayerController>().spotifyApi;
 
@@ -44,11 +60,35 @@ class HomeController extends BaseController {
     try {
 
       _loadingTopHitPlaylists.value = true;
-      List<PlaylistSimple> playlists = await _spotifyService.getTopHitPlaylist();
+      List<PlaylistSimple> playlists = await _spotifyService.getPlaylistsById('toplists');
       _loadingTopHitPlaylists.value = false;
       _topHitPlaylists.value = playlists;
     } catch (_) {
       _loadingTopHitPlaylists.value = false;
+    }
+  }
+
+  Future<void> getVietnamPlaylists() async {
+    try {
+
+      _loadingVietnamPlaylists.value = true;
+      List<PlaylistSimple> playlists = await _spotifyService.getPlaylistsById('0JQ5DAqbMKFDBgllo2cUIN');
+      _loadingVietnamPlaylists.value = false;
+      _vietnamPlaylists.value = playlists;
+    } catch (_) {
+      _loadingVietnamPlaylists.value = false;
+    }
+  }
+
+  Future<void> getKPopPlaylists() async {
+    try {
+
+      _loadingKPopPlaylists.value = true;
+      List<PlaylistSimple> playlists = await _spotifyService.getPlaylistsById('0JQ5DAqbMKFGvOw3O4nLAf');
+      _loadingKPopPlaylists.value = false;
+      _kPopPlaylists.value = playlists;
+    } catch (_) {
+      _loadingKPopPlaylists.value = false;
     }
   }
 
@@ -66,14 +106,14 @@ class HomeController extends BaseController {
       String? id = '';
       await spotifyApi!.categories.list(country: 'VN').all(10).then((value) {
         for(var i in value){
-          print('${i.name} ${i.id}');
+          debugPrint('${i.name} ${i.id}');
         }
         id = value.first.id;
       });
 
       await spotifyApi!.playlists.getByCategoryId(id ?? '').all(10).then((value) {
         for(var i in value){
-          print('${i.name}');
+          debugPrint('${i.name}');
         }
       });
     }
@@ -86,6 +126,8 @@ class HomeController extends BaseController {
     }
     getFeaturedPlaylists();
     getTopHitPlaylists();
+    getVietnamPlaylists();
+    getKPopPlaylists();
     super.onInit();
   }
 }

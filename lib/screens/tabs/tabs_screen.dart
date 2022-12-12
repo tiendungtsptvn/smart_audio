@@ -68,10 +68,6 @@ class TabsScreen extends GetView<AuthController> {
                       title: "Search",
                     ),
                     TabItem(
-                      icon: Icons.chat_bubble,
-                      title: "Chat",
-                    ),
-                    TabItem(
                       icon: Icons.settings,
                       title: "Me",
                     ),

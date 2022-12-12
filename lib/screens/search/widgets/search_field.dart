@@ -18,12 +18,13 @@ class SearchTrackField extends GetView<SearchController> {
         style: textStyle(GPTypography.body16)?.copyWith(
           color: Colors.white
         ),
+        cursorColor: Colors.white,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
           ),
-          prefixIcon: Icon(
+          prefixIcon: const Icon(
             Icons.search_outlined,
             color: ColorSAU.secondaryColor,
           ),
@@ -33,7 +34,7 @@ class SearchTrackField extends GetView<SearchController> {
                 onTap: () {
                   controller.clearData();
                 },
-                child: Text(
+                child: const Text(
                   "Clear",
                   style: TextStyle(
                     color: ColorSAU.secondaryColor,

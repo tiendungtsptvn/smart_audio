@@ -8,6 +8,5 @@ import '../screens/setting/setting_screen.dart';
 const List<Widget> tabsApp = <Widget>[
   HomeScreen(),
   SearchScreen(),
-  ChatsScreen(),
   SettingScreen(),
 ];

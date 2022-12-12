@@ -14,10 +14,10 @@ class SpotifyService {
     }
   }
 
-  Future<List<PlaylistSimple>> getTopHitPlaylist() async {
+  Future<List<PlaylistSimple>> getPlaylistsById(String id) async {
     List<PlaylistSimple> playlists = [];
     try {
-      await spotifyApi.playlists.getByCategoryId('toplists').all(20).then((value){
+      await spotifyApi.playlists.getByCategoryId(id).all(20).then((value){
         playlists.addAll(value);
       });
       return playlists;
@@ -105,4 +105,5 @@ class SpotifyService {
       rethrow;
     }
   }
+
 }
