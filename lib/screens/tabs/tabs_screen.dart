@@ -68,7 +68,7 @@ class TabsScreen extends GetView<AuthController> {
                       title: "Search",
                     ),
                     TabItem(
-                      icon: Icons.settings,
+                      icon: Icons.person,
                       title: "Me",
                     ),
                   ],

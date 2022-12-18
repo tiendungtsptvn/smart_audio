@@ -77,7 +77,34 @@ class SettingScreen extends StatelessWidget {
               onTap: (){
                 Get.toNamed(RouterName.wishlist);
               },
-            )
+            ),
+            const SizedBox(height: 10,),
+            TileLibrary(
+              title: 'Your playlist',
+              iconData: Icons.library_music,
+              onTap: (){
+              },
+            ),
+            const SizedBox(height: 10,),
+            TileLibrary(
+              title: 'Recommended for you',
+              iconData: Icons.recommend,
+              onTap: (){
+              },
+            ),
+            const SizedBox(height: 10,),
+            const Text(
+              "Information",
+              style:
+              TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: ColorSAU.textGreyLight,),
+            ),
+            const SizedBox(height: 10,),
+            TileLibrary(
+              title: 'App information',
+              iconData: Icons.info,
+              onTap: (){
+              },
+            ),
           ],
         ),
       ),

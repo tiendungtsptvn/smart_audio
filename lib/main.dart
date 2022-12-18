@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     PlayerController playerController = Get.put(PlayerController());
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: AppThemes.theme(),
       home: Scaffold(
         resizeToAvoidBottomInset: false,
