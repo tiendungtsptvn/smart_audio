@@ -14,4 +14,6 @@ class RouterName {
   static const String search = '/search';
   static const String wishlist = '/wishlist';
   static const String playerScreen = '/playerScreen';
+  static const String myPlaylistScreen = '/myPlaylistScreen';
+  static const String myPlaylistTrackScreen = '/myPlaylistTrackScreen';
 }

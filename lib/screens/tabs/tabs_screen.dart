@@ -22,7 +22,6 @@ class TabsScreenBinding extends Bindings {
     Get.lazyPut(() => TabsController());
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => SearchController());
-    Get.lazyPut(() => MyPlaylistController());
   }
 }
 
@@ -48,6 +47,7 @@ class TabsScreen extends GetView<AuthController> {
           );
           Get.put(AlanController(playerController: Get.find<PlayerController>()));
           Get.put(WishlistController());
+          Get.put(MyPlaylistController());
           AlanVoice.onCommand.add((command) {
             debugPrint("____________\n\ngot new command ${command.data}\n\n_____");
             Get.find<AlanController>().action(actionData: command.data);

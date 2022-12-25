@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:smart_audio/screens/auth/login_webview/login_webview.dart';
+import 'package:smart_audio/screens/my_playlist/my_playlist_screen.dart';
+import 'package:smart_audio/screens/my_playlist/playlist_track_screen.dart';
 import 'package:smart_audio/screens/player/player_screen.dart';
 import 'package:smart_audio/screens/playlist/playlist_screen.dart';
 import 'package:smart_audio/screens/search/search_screen.dart';
@@ -37,6 +39,14 @@ class Pages {
       page: () => const PlayerScreen(),
       transition: Transition.downToUp,
     ),
-
+    GetPage(
+      name: RouterName.myPlaylistScreen,
+      page: () => const MyPlaylistScreen(),
+    ),
+    GetPage(
+        name: RouterName.myPlaylistTrackScreen,
+        page: () => const MyPlaylistTrackScreen(),
+        binding: MyPlaylistTrackScreenBinding()
+    ),
   ];
 }

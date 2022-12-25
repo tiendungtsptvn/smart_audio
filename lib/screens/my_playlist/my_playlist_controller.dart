@@ -1,26 +1,14 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:smart_audio/base/networking/services/spotify_api.dart';
 import 'package:smart_audio/constants/constants.dart';
 import 'package:smart_audio/models/local/my_playlist.dart';
-import 'package:smart_audio/screens/player/player_controller.dart';
-import 'package:spotify/spotify.dart';
+import 'package:smart_audio/routes/router_name.dart';
 import '../../base/controller/base_controller.dart';
 
 class MyPlaylistController extends BaseController {
-  final SpotifyService _spotifyService = SpotifyService(
-    spotifyApi: Get.find<PlayerController>().spotifyApi!,
-  );
 
   final storage = GetStorage();
-
-  final RxList<Track> _myPlaylistTracks = <Track>[].obs;
-
-  final RxBool loadingTracks = false.obs;
-
-  List<Track> get myPlaylistTracks => _myPlaylistTracks;
 
   final RxList<MyPlaylist> _myPlaylists = <MyPlaylist>[].obs;
 
@@ -49,21 +37,26 @@ class MyPlaylistController extends BaseController {
         _myPlaylists.value = playlists;
         storage.write(StringSAU.myPlaylistKeyStore, playlists.map((e) => e.toJson()).toList());
       }
+
+      Get.showSnackbar(const GetSnackBar(
+        message: 'Added !',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: ColorSAU.secondaryColor,
+        duration: Duration(seconds: 1),
+      ));
     }
   }
 
-  Future<void> getPlaylistTrack({required String playlistName}) async{
-    try{
-      List<String> trackIds = _myPlaylists.firstWhere((element) => element.name == playlistName).tracks;
-      loadingTracks.value = true;
-      final tracks = await _spotifyService.getSeveralTracks(trackIds: trackIds);
-      loadingTracks.value = false;
-      _myPlaylistTracks.value = tracks;
-    }catch(e){
-      loadingTracks.value = false;
-      debugPrint('Error when get my playlist tracks: $e');
-    }
+  void goToMyPlaylistScreen({required MyPlaylist playlist}) {
+    Get.toNamed(
+      RouterName.myPlaylistTrackScreen,
+      arguments: {
+        'track_id': playlist.tracks,
+        'playlist_name': playlist.name,
+      },
+    );
   }
+
 
   @override
   void onInit() {

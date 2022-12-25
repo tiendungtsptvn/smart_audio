@@ -21,7 +21,7 @@ class AddPlaylistModal extends GetView<MyPlaylistController> {
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: InkWell(
-                    child: const Text('Cancel'),
+                    child: const Text('Cancel', style: TextStyle(fontSize: SAUDouble.fontSizeNormal),),
                     onTap: () {
                       Navigator.of(context).pop();
                     }),
@@ -59,10 +59,11 @@ class AddPlaylistModal extends GetView<MyPlaylistController> {
                     children: List.generate(
                         controller.myPlaylists.length,
                         (index) => ListTile(
-                              leading: Text((index + 1).toString()),
+                              leading: Text((index + 1).toString(),
+                                style: const TextStyle(fontSize: SAUDouble.fontSizeNormal),),
                               title: Text(
                                 controller.myPlaylists[index].name,
-                                style: const TextStyle(),
+                                style: const TextStyle(fontSize: SAUDouble.fontSizeNormal),
                               ),
                               trailing: const Icon(
                                 Icons.playlist_add,

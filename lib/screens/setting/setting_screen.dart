@@ -80,9 +80,10 @@ class SettingScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10,),
             TileLibrary(
-              title: 'Your playlist',
+              title: 'Playlist',
               iconData: Icons.library_music,
               onTap: (){
+                Get.toNamed(RouterName.myPlaylistScreen);
               },
             ),
             const SizedBox(height: 10,),
