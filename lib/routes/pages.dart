@@ -5,23 +5,11 @@ import 'package:smart_audio/screens/playlist/playlist_screen.dart';
 import 'package:smart_audio/screens/search/search_screen.dart';
 import 'package:smart_audio/screens/tabs/tabs_screen.dart';
 import 'package:smart_audio/screens/wishlist_tracks/wishlist_screen.dart';
-import '../screens/chats/chats_screen.dart';
-import '../screens/chats/stored_conversation/stored_conversation_screen.dart';
 
 import 'router_name.dart';
 
 class Pages {
   static List<GetPage> pages = [
-    GetPage(
-      name: RouterName.chats,
-      page: () => const ChatsScreen(),
-      binding: ChatsScreenBinding(),
-    ),
-    GetPage(
-      name: RouterName.storedConversation,
-      page: () => const StoredConversation(),
-      binding: StoredConversationBinding(),
-    ),
     GetPage(
       name: RouterName.tabs,
       page: () => const TabsScreen(),

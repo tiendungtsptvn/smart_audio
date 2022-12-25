@@ -5,22 +5,14 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:smart_audio/base/networking/services/auth_api.dart';
 import '../../base/controller/base_controller.dart';
-import '../../routes/router_name.dart';
 
 class AuthController extends BaseController {
 
 
   static const String _accessTokenKey = "access_token";
-  static const String _refreshTokenKey = "refresh_token";
   static const String _authCookieKey = 'auth_cookie';
-  static const String _tokenExpireTimeKey = 'kTokenExpireTime';
-  static const String _userInfoKey = 'kUserInfoKey';
-  static const String _walletPrivateKey = '_walletPrivateKey';
-  static const String _walletPublicKey = '_walletPublicKey';
-
   final storage = GetStorage();
 
-  // final ChatAPI _chatAPI = ChatAPI();
 
   final RxBool _initializing = true.obs;
   bool get initializing => _initializing.value;
@@ -120,7 +112,7 @@ class AuthController extends BaseController {
       _restartRefresher();
     }
     /// Todo: save token to storage.
-    // updatePersistence();
+    /// updatePersistence();
   }
 
 }

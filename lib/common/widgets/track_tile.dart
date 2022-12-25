@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smart_audio/base/widgets/animated_shimmer.dart';
 import 'package:smart_audio/common/common.dart';
+import 'package:smart_audio/common/widgets/option_track_modal.dart';
+import 'package:smart_audio/constants/color.dart';
 import 'package:smart_audio/screens/player/player_controller.dart';
 import 'package:smart_audio/utils/spotify_util.dart';
 import 'package:spotify/spotify.dart';
@@ -98,7 +100,20 @@ class TrackTile extends GetView<PlayerController> {
                 ],
               ),
             ),
-            const SizedBox(width: 10),
+            Padding(
+              padding: const EdgeInsets.only(left: 5, right: 10),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.more_horiz,
+                  color: ColorSAU.textGrey,
+                ),
+                onPressed: (){
+                  showModalBottomSheet(context: context, builder: (context) {
+                    return  OptionTrackModal(track: track,);
+                  },);
+                },
+              ),
+            ),
           ],
         ),
       ),

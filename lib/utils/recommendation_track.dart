@@ -8,7 +8,7 @@ void storeTrackInformation({required Track track}) {
   final storage = GetStorage();
   //Artist
   if (track.artists != null) {
-    Map<String, int> artistsStored = Map<String, int>.from(storage.read(StringSAU.recentArtists) ?? {});
+    Map<String, int> artistsStored = Map<String, int>.from(storage.read(StringSAU.recentArtistsKeyStore) ?? {});
     for (var artist in track.artists!) {
       if (artist.id != null) {
         artistsStored.update(
@@ -18,11 +18,11 @@ void storeTrackInformation({required Track track}) {
         );
       }
     }
-    storage.write(StringSAU.recentArtists, artistsStored);
+    storage.write(StringSAU.recentArtistsKeyStore, artistsStored);
   }
   //Genre
   if (track.artists != null) {
-    Map<String, int> genresStored = Map<String, int>.from(storage.read(StringSAU.recentGenres) ?? {});
+    Map<String, int> genresStored = Map<String, int>.from(storage.read(StringSAU.recentGenresKeyStore) ?? {});
     for (var artist in track.artists!) {
       if (artist.genres != null) {
         for (var genre in artist.genres!) {
@@ -34,17 +34,17 @@ void storeTrackInformation({required Track track}) {
         }
       }
     }
-    storage.write(StringSAU.recentGenres, genresStored);
+    storage.write(StringSAU.recentGenresKeyStore, genresStored);
   }
   //Track
   if (track.id != null) {
-    Map<String, int> tracksStored = Map<String, int>.from(storage.read(StringSAU.recentTracks) ?? {});
+    Map<String, int> tracksStored = Map<String, int>.from(storage.read(StringSAU.recentTracksKeyStore) ?? {});
     tracksStored.update(
       track.id!,
       (value) => 1 + value,
       ifAbsent: () => 1,
     );
-    storage.write(StringSAU.recentTracks, tracksStored);
+    storage.write(StringSAU.recentTracksKeyStore, tracksStored);
   }
 }
 /// Sort and remove recommendation information.
@@ -53,7 +53,7 @@ void sortAndRemoveRecommendationInformation() {
   final storage = GetStorage();
 
   //Artist
-  Map<String, int> artistsStored = Map<String, int>.from(storage.read(StringSAU.recentArtists) ?? {});
+  Map<String, int> artistsStored = Map<String, int>.from(storage.read(StringSAU.recentArtistsKeyStore) ?? {});
   //Order from Largest to smallest
   Map<String, int> artistsStoredSorted =
       Map.fromEntries(artistsStored.entries.toList()..sort((e1, e2) => e2.value.compareTo(e1.value)));
@@ -62,10 +62,10 @@ void sortAndRemoveRecommendationInformation() {
     artistsStoredSorted =
         Map.fromEntries(artistsStoredSorted.entries.toList()..removeRange(49, artistsStoredSorted.length));
   }
-  storage.write(StringSAU.recentArtists, artistsStoredSorted);
+  storage.write(StringSAU.recentArtistsKeyStore, artistsStoredSorted);
 
   //Genre
-  Map<String, int> genresStored = Map<String, int>.from(storage.read(StringSAU.recentGenres) ?? {});
+  Map<String, int> genresStored = Map<String, int>.from(storage.read(StringSAU.recentGenresKeyStore) ?? {});
   //Order from Largest to smallest
   Map<String, int> genresStoredSorted =
   Map.fromEntries(genresStored.entries.toList()..sort((e1, e2) => e2.value.compareTo(e1.value)));
@@ -74,10 +74,10 @@ void sortAndRemoveRecommendationInformation() {
     genresStoredSorted =
         Map.fromEntries(genresStoredSorted.entries.toList()..removeRange(49, genresStoredSorted.length));
   }
-  storage.write(StringSAU.recentGenres, genresStoredSorted);
+  storage.write(StringSAU.recentGenresKeyStore, genresStoredSorted);
 
   //Tracks
-  Map<String, int> tracksStored = Map<String, int>.from(storage.read(StringSAU.recentTracks) ?? {});
+  Map<String, int> tracksStored = Map<String, int>.from(storage.read(StringSAU.recentTracksKeyStore) ?? {});
   //Order from Largest to smallest
   Map<String, int> tracksStoredSorted =
   Map.fromEntries(tracksStored.entries.toList()..sort((e1, e2) => e2.value.compareTo(e1.value)));
@@ -86,20 +86,20 @@ void sortAndRemoveRecommendationInformation() {
     tracksStoredSorted =
         Map.fromEntries(tracksStoredSorted.entries.toList()..removeRange(99, tracksStoredSorted.length));
   }
-  storage.write(StringSAU.recentTracks, tracksStoredSorted);
+  storage.write(StringSAU.recentTracksKeyStore, tracksStoredSorted);
 }
 
 List<String> getSeedData({required GetStorage storage, bool genres = false, bool artists = false, bool tracks = false,}){
   Map<String, int> artistsData = {};
   if(artists){
-    artistsData = storage.read(StringSAU.recentArtists);
+    artistsData = storage.read(StringSAU.recentArtistsKeyStore);
   }
   if(genres){
-    artistsData = storage.read(StringSAU.recentGenres);
+    artistsData = storage.read(StringSAU.recentGenresKeyStore);
 
   }
   if(tracks){
-    artistsData = storage.read(StringSAU.recentTracks);
+    artistsData = storage.read(StringSAU.recentTracksKeyStore);
   }
   if(artistsData.keys.isNotEmpty){
     return [artistsData.keys.first];

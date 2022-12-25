@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smart_audio/constants/constants.dart';
 import 'package:smart_audio/screens/home/home_controller.dart';
+import 'package:smart_audio/screens/my_playlist/my_playlist_controller.dart';
 import 'package:smart_audio/screens/player/player_controller.dart';
 import 'package:smart_audio/screens/search/search_controller.dart';
 import 'package:smart_audio/screens/splash/splash_screen.dart';
@@ -21,9 +22,7 @@ class TabsScreenBinding extends Bindings {
     Get.lazyPut(() => TabsController());
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => SearchController());
-    AlanVoice.addButton(
-        "67737059c5d2c83e73740f8a838359482e956eca572e1d8b807a3e2338fdd0dc/stage",
-        buttonAlign: AlanVoice.BUTTON_ALIGN_LEFT);
+    Get.lazyPut(() => MyPlaylistController());
   }
 }
 
@@ -39,6 +38,9 @@ class TabsScreen extends GetView<AuthController> {
         if (controller.initializing) {
           return const SplashScreen();
         } else {
+          AlanVoice.addButton(
+              "67737059c5d2c83e73740f8a838359482e956eca572e1d8b807a3e2338fdd0dc/stage",
+              buttonAlign: AlanVoice.BUTTON_ALIGN_LEFT);
           TabsController tabsController = Get.find<TabsController>();
           Get.find<PlayerController>().createSpotifyApi(
             controller.isAnonymous,

@@ -31,7 +31,7 @@ class WishlistController extends BaseController {
      if(!wishlist.contains(trackId)){
        wishlist.add(trackId);
        _currentWishlist.value = wishlist;
-       storage.write(StringSAU.wishlistTracks, wishlist);
+       storage.write(StringSAU.wishlistTracksKeyStore, wishlist);
      }
    }
   }
@@ -42,7 +42,10 @@ class WishlistController extends BaseController {
       if(wishlist.contains(trackId)){
         wishlist.removeWhere((element) => element == trackId);
         _currentWishlist.value = wishlist;
-        storage.write(StringSAU.wishlistTracks, wishlist);
+        storage.write(StringSAU.wishlistTracksKeyStore, wishlist);
+        List<Track> newList = [..._wishlistTracks];
+        newList.removeWhere((element) => element.id == trackId);
+        _wishlistTracks.value = newList;
       }
     }
   }
@@ -61,7 +64,7 @@ class WishlistController extends BaseController {
 
   @override
   void onInit() {
-    List<dynamic> data = storage.read(StringSAU.wishlistTracks) ?? [];
+    List<dynamic> data = storage.read(StringSAU.wishlistTracksKeyStore) ?? [];
     _currentWishlist.value = data.map((e) => e.toString()).toList();
     super.onInit();
   }

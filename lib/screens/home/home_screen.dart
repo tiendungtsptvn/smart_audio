@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:smart_audio/screens/home/home_controller.dart';
 import 'package:smart_audio/screens/home/widgets/kpop_playlists.dart';
 import 'package:smart_audio/screens/home/widgets/top_hit_playlists.dart';
 import 'package:smart_audio/screens/home/widgets/vietnam_playlists.dart';
@@ -15,46 +13,40 @@ class HomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children:  [
+        children:  const [
           // Feature play list.
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: Text(
               "Featured",
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
             ),
           ),
-          const FeaturedPlaylists(),
-          const Padding(
+          FeaturedPlaylists(),
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: Text(
               "Top Hits",
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
             ),
           ),
-          const TopHitPlaylists(),
-          const Padding(
+          TopHitPlaylists(),
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: Text(
               "Spotify Singles",
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
             ),
           ),
-          const VietnamPlaylists(),
-          const Padding(
+          VietnamPlaylists(),
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: Text(
               "K-Pop",
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
             ),
           ),
-          const KPopPlaylists(),
-          ElevatedButton(
-            onPressed: () {
-              Get.find<HomeController>().testApi();
-            },
-            child: const Text("Test api"),
-          ),
+          KPopPlaylists(),
         ],
       ),
     );
