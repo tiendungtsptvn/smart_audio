@@ -6,7 +6,6 @@ import 'package:get_storage/get_storage.dart';
 import '../../../../configs/constants.dart';
 import '../../../../models/token/token_manager.dart';
 import '../../../../routes/router_name.dart';
-import '../../../../utils/log.dart';
 final box = GetStorage();
 
 class TokenInterceptor extends Interceptor {
@@ -81,7 +80,6 @@ class TokenInterceptor extends Interceptor {
           .then(handler.resolve)
           .catchError((e) => handler.reject(e));
     }).catchError((e) {
-      logDebug("renew error $e");
       handler.reject(e);
     });
   }

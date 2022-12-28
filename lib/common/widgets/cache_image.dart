@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:smart_audio/constants/constants.dart';
 
@@ -18,19 +18,19 @@ class CacheImageSAU extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: url,
+    return Image.network(
+      url,
       width: width,
       height: height,
       fit: fit,
-      errorWidget: (context, url, error) {
+      errorBuilder: (context, url, error) {
         return Image.asset(
           StringSAU.errorImage,
           width: width,
           height: height,
         );
       },
-      progressIndicatorBuilder: (context, url, progress) => const CupertinoActivityIndicator(),
+      // progressIndicatorBuilder: (context, url, progress) => const CupertinoActivityIndicator(),
     );
   }
 }

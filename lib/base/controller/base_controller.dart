@@ -2,21 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../utils/log.dart';
-import '../../utils/popup.dart';
 import '../networking/base/app_exception.dart';
 
 abstract class BaseController extends GetxController {
   RxBool isLoading = false.obs;
 
   void handleError(Object error) {
-    logDebug("got error ${error.toString()}");
     isLoading.value = false;
     var message = 'Có lỗi xảy ra, vui lòng thử lại!';
     if (error is AppException) {
       message = error.toString();
     }
-    Popup.instance.showSnackBar(message: message, type: SnackbarType.error);
   }
 
   void dismissKeyboard() {
@@ -53,7 +49,6 @@ abstract class BaseListController<T> extends BaseController {
   }
 
   Future<bool> loadMoreItems() async {
-    logDebug("load more items ${listItem.length}");
     if (!canLoadMore || isLoading.value) return false;
     await getListItems();
     return true;

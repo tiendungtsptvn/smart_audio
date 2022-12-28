@@ -1,7 +1,6 @@
 import 'package:get_storage/get_storage.dart';
 
 import '../../base/networking/services/auth_api.dart';
-import '../../utils/log.dart';
 import '../api/user_info.dart';
 import '../renew_token_info/renew_token_info.dart';
 
@@ -91,7 +90,6 @@ class TokenManager {
         TokenManager.saveUser(userInfo);
       }
     } catch (error) {
-      logDebug("get user error $error");
       // handleError(error);
     }
   }

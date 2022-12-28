@@ -1,6 +1,5 @@
 import 'package:get_storage/get_storage.dart';
 
-import 'package:flutter_keychain/flutter_keychain.dart';
 
 import '../models/api/user_info.dart';
 import '../models/token/token_manager.dart';
@@ -23,21 +22,3 @@ class LocalService {
   }
 }
 
-class KeyChainService {
-  static Future save(String key, dynamic value, bool userOnly) async {
-    UserInfo? user = TokenManager.userInfo;
-    String userId = user?.email ?? "";
-    String finalKey = userOnly ? userId + key : key;
-    if (value == null) {
-      return await FlutterKeychain.remove(key: finalKey);
-    }
-    return await FlutterKeychain.put(key: finalKey, value: value);
-  }
-
-  static Future<dynamic> get(String key, bool userOnly) async {
-    UserInfo? user = TokenManager.userInfo;
-    String userId = user?.email ?? "";
-    String finalKey = userOnly ? userId + key : key;
-    return await FlutterKeychain.get(key: finalKey);
-  }
-}

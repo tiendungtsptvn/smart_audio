@@ -4,13 +4,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:smart_audio/screens/alan/alan_controller.dart';
 import 'package:smart_audio/screens/player/mini_player.dart';
 import 'package:smart_audio/screens/player/player_controller.dart';
-import 'package:smart_audio/screens/wishlist_tracks/wishlist_controller.dart';
 import 'package:smart_audio/theme/themes.dart';
 import 'package:smart_audio/utils/recommendation_track.dart';
-import 'package:smart_audio/utils/utils.dart';
 
 import 'generated/locales.g.dart';
 import 'models/token/token_manager.dart';
@@ -66,7 +63,6 @@ class MyApp extends StatelessWidget {
                 getPages: Pages.pages,
                 routingCallback: (value) {
                   if (value == null || value.isBottomSheet == true || value.isDialog == true) return;
-                  Utils.trackScreen(value.current);
                   if(value.route?.settings.name == RouterName.tabs){
                     playerController.changeRoute(atTabScreen: true);
                   }else{

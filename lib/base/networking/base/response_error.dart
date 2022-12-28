@@ -1,7 +1,6 @@
 
 import 'package:dio/dio.dart';
 
-import '../../../utils/utils.dart';
 
 class ResponseError {
   int? code;
@@ -14,7 +13,7 @@ class ResponseError {
   ResponseError.fromJson(Map<String, dynamic> json) {
     Map<String, dynamic> data =
         json["data"] is Map<String, dynamic> ? json["data"] : json;
-    code ??= ParserHelper.parseInt(data['code']);
+    code ??= int.tryParse(data['code']);
     message ??= data['message'];
     // code ??= json['err_code'];
     message ??= data['otp'];

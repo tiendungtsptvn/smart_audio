@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 
 import '../../../../models/token/token_manager.dart';
-import '../../../../utils/utils.dart';
 
 
 class AuthenticationInterceptor extends Interceptor {
@@ -13,7 +12,7 @@ class AuthenticationInterceptor extends Interceptor {
     String token = TokenManager.accessToken();
     Map<String, String> headers = {
       'Authorization': 'Bearer $token',
-      'x-language': Utils.currentLanguageCode()
+      'x-language': 'en'
     };
     options.headers.addAll(headers);
 

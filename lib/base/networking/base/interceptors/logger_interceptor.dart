@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
-import '../../../../utils/log.dart';
 
 class LoggerInterceptor extends Interceptor {
   /// Width size per logPrint
@@ -11,7 +10,6 @@ class LoggerInterceptor extends Interceptor {
   final bool responseBody;
 
   /// to detect print function
-  final void Function(Object object) logPrint = logDebug;
 
   LoggerInterceptor({
     this.responseBody = true,
@@ -20,9 +18,6 @@ class LoggerInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     _printLine('╔', '╗');
-    logPrint(_cURLRepresentation(options));
-    logPrint('Request Body');
-    logPrint(options.data ?? "");
     _printLine('╚');
     handler.next(options);
   }
@@ -30,20 +25,6 @@ class LoggerInterceptor extends Interceptor {
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     _printLine('╔', '╗');
-    if (err.type == DioErrorType.response) {
-      logPrint(_cURLRepresentation(err.requestOptions));
-      final uri = err.response?.requestOptions.uri;
-      logPrint(
-          'DioError ║ Status: ${err.response?.statusCode} ${err.response?.statusMessage}');
-      logPrint(uri.toString());
-      if (err.response != null && err.response?.data != null) {
-        logPrint(err.type.toString());
-        logPrint(err.response!);
-      }
-    } else {
-      logPrint('DioError ║ ${err.type}');
-      logPrint(err.message);
-    }
     _printLine('╚');
     handler.next(err);
   }
@@ -51,16 +32,8 @@ class LoggerInterceptor extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     _printLine('╔', '╗');
-    logPrint(_cURLRepresentation(response.requestOptions));
-    logPrint(
-        'Response ║ ${response.requestOptions.method} ║ Status: ${response.statusCode} ${response.statusMessage}');
-    logPrint(response.requestOptions.uri.toString());
     final responseHeaders = <String, String>{};
     response.headers.forEach((k, list) => responseHeaders[k] = list.toString());
-    logPrint(responseHeaders);
-    if (responseBody) {
-      logPrint(response);
-    }
     _printLine('╚');
     handler.next(response);
   }
@@ -89,6 +62,5 @@ class LoggerInterceptor extends Interceptor {
   }
 
   void _printLine([String pre = '', String suf = '╝']) {
-    logPrint('$pre${'═' * (maxWidth ~/ 2.0)}${'═' * (maxWidth ~/ 2.0)}$suf');
   }
 }
