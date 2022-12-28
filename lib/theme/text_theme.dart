@@ -96,4 +96,5 @@ TextStyle? textStyle(GPTypography typo) {
           leadingDistribution: TextLeadingDistribution.even));
     default:
   }
+  return null;
 }

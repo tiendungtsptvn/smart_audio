@@ -209,7 +209,6 @@ class AppThemes {
 
   // LIGHT THEME
   static final ThemeData _lightTheme = ThemeData(
-    primaryColorBrightness: Brightness.light,
     fontFamily: _bodyFontFamily,
     primaryColor: GPColor.workPrimary,
     scaffoldBackgroundColor: GPColor.bgPrimary,
@@ -222,7 +221,6 @@ class AppThemes {
     ),
     colorScheme: const ColorScheme.light(
       primary: GPColor.workPrimary,
-      primaryVariant: GPColor.bgSecondary,
     ),
     snackBarTheme:
         const SnackBarThemeData(backgroundColor: GPColor.contentPrimary),
@@ -248,7 +246,6 @@ class AppThemes {
     ),
     colorScheme: const ColorScheme.dark(
       primary: GPColor.bgInversePrimary,
-      primaryVariant: GPColor.bgSecondary,
     ),
     snackBarTheme:
         const SnackBarThemeData(backgroundColor: GPColor.bgSecondary),
