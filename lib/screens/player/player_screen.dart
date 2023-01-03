@@ -4,6 +4,7 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smart_audio/common/common.dart';
+import 'package:smart_audio/common/widgets/add_playlist_modal.dart';
 import 'package:smart_audio/constants/constants.dart';
 import 'package:smart_audio/screens/player/player_controller.dart';
 import 'package:smart_audio/screens/wishlist_tracks/wishlist_controller.dart';
@@ -166,10 +167,23 @@ class PlayerScreen extends GetView<PlayerController> {
                     ),
                   )),
                   const Spacer(),
-                  const Icon(
-                    Icons.add,
-                    size: 35,
-                    color: ColorSAU.textDarkWhite,
+                  InkWell(
+                    onTap: (){
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return  AddPlaylistModal(track: controller.currentTrack,);
+                        },
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+                        ),
+                      );
+                    },
+                    child: const Icon(
+                      Icons.add,
+                      size: 35,
+                      color: ColorSAU.textDarkWhite,
+                    ),
                   )
                 ],
               ),

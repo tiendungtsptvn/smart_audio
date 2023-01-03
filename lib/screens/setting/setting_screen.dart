@@ -86,13 +86,13 @@ class SettingScreen extends StatelessWidget {
                 Get.toNamed(RouterName.myPlaylistScreen);
               },
             ),
-            const SizedBox(height: 10,),
-            TileLibrary(
-              title: 'Recommended for you',
-              iconData: Icons.recommend,
-              onTap: (){
-              },
-            ),
+            // const SizedBox(height: 10,),
+            // TileLibrary(
+            //   title: 'Recommended for you',
+            //   iconData: Icons.recommend,
+            //   onTap: (){
+            //   },
+            // ),
             const SizedBox(height: 10,),
             const Text(
               "Information",
@@ -104,6 +104,7 @@ class SettingScreen extends StatelessWidget {
               title: 'App information',
               iconData: Icons.info,
               onTap: (){
+                Get.toNamed(RouterName.appInformationScreen);
               },
             ),
           ],

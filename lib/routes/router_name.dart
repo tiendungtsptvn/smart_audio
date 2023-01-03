@@ -16,4 +16,5 @@ class RouterName {
   static const String playerScreen = '/playerScreen';
   static const String myPlaylistScreen = '/myPlaylistScreen';
   static const String myPlaylistTrackScreen = '/myPlaylistTrackScreen';
+  static const String appInformationScreen = '/appInformationScreen';
 }

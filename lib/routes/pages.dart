@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:smart_audio/screens/app_information/app_information.dart';
 import 'package:smart_audio/screens/auth/login_webview/login_webview.dart';
 import 'package:smart_audio/screens/my_playlist/my_playlist_screen.dart';
 import 'package:smart_audio/screens/my_playlist/playlist_track_screen.dart';
@@ -47,6 +48,10 @@ class Pages {
         name: RouterName.myPlaylistTrackScreen,
         page: () => const MyPlaylistTrackScreen(),
         binding: MyPlaylistTrackScreenBinding()
+    ),
+    GetPage(
+      name: RouterName.appInformationScreen,
+      page: () => const AppInformationScreen(),
     ),
   ];
 }
